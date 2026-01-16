@@ -1,0 +1,232 @@
+.form-text {
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .text-muted {
+    color: #6c757d !important;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group > label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  #input-title {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: inherit;
+    line-height: inherit;
+    overflow: visible;
+    resize: none;
+    outline: 0 !important;
+  }
+
+  .form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-transition: border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form-control {
+      -webkit-transition: none;
+      transition: none;
+    }
+  }
+
+  .form-control {
+    font-family: "Inter", sans-serif;
+    color: #131e22;
+    font-weight: 400;
+    height: 45px;
+    border-color: #d4d4d4;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  input[type="file"].form-control {
+    height: fit-content;
+  }
+
+  .col-md-4,
+  .col-sm-12 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  @media (min-width: 576px) {
+    .col-sm-12 {
+      -ms-flex: 0 0 100%;
+      -webkit-box-flex: 0;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .col-md-4 {
+      -ms-flex: 0 0 33.333333%;
+      -webkit-box-flex: 0;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+
+    .col-md-2 { 
+        -ms-flex: 0 0 16.666667%; 
+        -webkit-box-flex: 0; 
+        flex: 0 0 16.666667%; 
+        max-width: 16.666667%;
+      } 
+  }
+
+  .row {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+
+  .toggle-btn input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  .toggle-btn label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 30px;
+    height: 15px;
+    background: grey;
+    display: block;
+    border-radius: 30px;
+    position: relative;
+  }
+
+  .toggle-btn label:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+
+  .toggle-btn input:checked + label {
+    background: #bada55;
+  }
+
+  .toggle-btn input:checked + label:after {
+    left: calc(100% - 0px);
+    transform: translateX(-100%);
+  }
+
+  .toggle-btn label:active:after {
+    width: 130px;
+  }
+
+  .main-new-training {
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    
+  }
+
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  option {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+  }
+
+  .flex-column {
+    row-gap: 0.4rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex-row {
+    display: flex;
+  }
+
+  .criteria-heading {
+    text-decoration: underline;
+  }
+
+  .form-btns {
+    display: flex;
+    justify-content: center;
+    column-gap: 1rem;
+  }
+
+  .save-btn  {
+    background-color: transparent;
+    border: 2px solid #000 !important;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+
+  .predict-btn, .prev-predict-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .col-md-2 {
+    position: relative; 
+    width: 100%; 
+    padding-right: 15px; 
+    padding-left: 15px;
+  }

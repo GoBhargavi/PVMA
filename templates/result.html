@@ -1,0 +1,38 @@
+{# templates/result.html #} {% extends "common_layout.html" %} {% block content
+%}
+
+<div class="training-detail">
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        Training Status:
+        <span
+          class="label label-warning"
+          style="font-weight: 500; color: green; text-transform: uppercase"
+          >{{result.status}}</span
+        >
+        <!-- <small class="pull-right">
+              Refreshed 39 minutes ago
+            </small> -->
+      </h3>
+    </div>
+  </div>
+  <div class="output-img">
+    <img src="/output/{{result.job_id}}" style="flex-basis: calc()">
+    <img src="/output/{{result.job_id}}_2" style="flex-basis: calc(50% - 1rem);">
+  </div>
+
+  <div class="download-btns">
+    <button>
+      <a href="/output/{{result.job_id}}" download>Download</a>
+    </button>
+    <button>
+      <a href="/output/{{result.job_id}}_2" download>Download</a>
+    </button>
+    <button>
+      <a href="/output/{{result.job_id}}?csv=1" download>Download Predictions</a>
+    </button>
+  </div>
+</div>
+
+{% endblock content %}

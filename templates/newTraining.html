@@ -1,0 +1,415 @@
+{# templates/newTraining.html #} {% extends "common_layout.html" %} {% block
+content %}
+
+<style>
+  .note {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
+    /* lite warning red color */
+    background-color: #fff3cd;
+    /* right border dark red */
+    border-left: 6px solid #ffc107;
+    padding-left: 15px;
+    padding-block: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .note h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-block: 10px;
+  }
+
+  .note p {
+    margin-block: 10px;
+  }
+
+  .note-option-container {
+    display: flex;
+    column-gap: 1rem;
+  }
+
+  .note-options {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 10px;
+  }
+
+  .note-options:nth-child(2) {
+    border-inline: 1px dotted #6c757d;
+  }
+
+  .note-options li {
+    list-style-type: circle;
+    /* give padding to the bold points */
+    list-style-position: inside;
+  }
+
+  .file-name {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+</style>
+
+<div class="main-new-training">
+  <form method="post" enctype="multipart/form-data">
+    <div class="form-group flex-column">
+      <label style="margin-bottom: 0"> Select from previous saved data</label>
+      <div class="toggle-btn flex-column">
+        <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+      </div>
+    </div>
+
+    <div class="previous-training-from">
+      <div class="form-group previous-titles">
+        <label> Select from saved prediction </label>
+        <select name="select-data" id="select-data">
+          <option value="0">Select predictions</option>
+          {% for prediction in predictions %}
+          <option value="{{prediction.prediction_id}}">{{prediction.title}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Statistical Data </label>
+            <p class = "file-name" id="statistical-data">&nbsp</p>
+
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Climate Data </label>
+            <p class = "file-name" id="climate-data">&nbsp</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Google Trends Data </label>
+            <p class = "file-name" id="google-trends-data"> &nbsp  </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-training-form">
+      <div class="form-group enter-title">
+        <label> Enter a name for the prediction </label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Forumla 1 race2023 / Cherry blossom festival 2023"
+          name="title"
+          id="input-title"
+        />
+      </div>
+
+      <div class="note">
+        <h2>Note:</h2>
+        <p>
+          All 3 datasets should be of equal time duration.& should contain only
+          monthly data not weekly or daily
+        </p>
+        <p>
+          All the date must be in following format yyyy-mm-ddFor monthly-based
+          data, the "dd" can be 01 for all the rows
+        </p>
+        <p>
+          These are the compulsory columns in the dataset (with exact same
+          column/feature name), other columns can be there
+        </p>
+        <div class="note-option-container">
+          <div class="note-options">
+            <h3>Climate Data</h3>
+            <ol type="a">
+              <li>date</li>
+              <li>tvag</li>
+            </ol>
+          </div>
+
+          <div class="note-options">
+            <h3>Statistical Data</h3>
+            <ol type="a">
+              <li>date</li>
+              <li>visitors</li>
+            </ol>
+          </div>
+
+          <div class="note-options">
+            <h3>Google Trend</h3>
+            <ol type="a">
+              <li>date</li>
+              <li>travel</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Statistical Data </label>
+            <input
+              type="file"
+              class="form-control height-auto"
+              name="statistical-data"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            />
+            <!-- <small class="form-text text-muted snipcss-2P9BG">
+              Your password must be 8-20 characters long, contain letters and
+              numbers, and must not contain spaces, special characters, or
+              emoji.
+            </small> -->
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Climate Data </label>
+            <input
+              type="file"
+              class="form-control height-auto"
+              name="climate-data"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            />
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="form-group">
+            <label> Google Trends Data </label>
+            <input
+              type="file"
+              class="form-control height-auto"
+              name="google-trends-data"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="criteria">
+      <h2 class="criteria-heading">Prediction Criteria</h2>
+    </div>
+
+    <div class="time-prediction flex-row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label> From</label>
+          <input
+            class="form-control"
+            type="date"
+            name="from-time-prediction"
+            id="from-time-prediction"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label> To </label>
+          <input
+            class="form-control"
+            type="date"
+            name="to-time-prediction"
+            id="to-time-prediction"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group form-btns new-form">
+      <button type="submit" class="predict-btn" value="predict">Predict</button>
+
+      <button type="submit" class="save-btn" value="save">Save</button>
+    </div>
+    <div class="form-group form-btns previous-form">
+      <button type="submit" class="prev-predict-btn" value="predict-saved">
+        Predict
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const toggleSwitch = document.querySelector("#switch");
+  const previousTraining = document.querySelector(".previous-training-from");
+  const newTraining = document.querySelector(".new-training-form");
+  const form = document.querySelector("form");
+  const newForm = document.querySelector(".new-form");
+
+  const selectElement = document.querySelector("#select-data");
+
+  const prevForm = document.querySelector(".previous-form");
+
+  prevForm.style.display = "none";
+  previousTraining.style.display = "none";
+
+  const user_predictions = {{predictions | tojson | safe}};
+
+
+  // add event listener to select element
+  selectElement.addEventListener("change", (e) => {
+    const value = e.target.value;
+    const statisticalEle = document.getElementById("statistical-data");
+    const climateEle = document.getElementById("climate-data");
+    const googleTrendsEle = document.getElementById("google-trends-data");
+
+    if (value === 0) {
+      statisticalEle.innerHTML = "&nbsp";
+      climateEle.innerHTML = "&nbsp";
+      googleTrendsEle.innerHTML = "&nbsp";
+
+    };
+       
+  user_predictions.forEach((e) => {
+    if (e.prediction_id === value) {
+      statisticalEle.innerText = "statistical_data.csv";
+      climateEle.innerText = "climate_data.csv";
+      googleTrendsEle.innerText = "google_trends_data.csv";
+    }
+  })    
+
+  });
+  
+  
+  
+  const get_cookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(
+            cookie.substring(name.length + 1)
+          );
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  };
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const btnValue = e.submitter.value;
+    if (btnValue === "predict") {
+      //  set target to newTraining url
+      form.action = "/start-predict";
+      // get title from input
+      const title = form.title.value;
+      const statisticalData = form["statistical-data"];
+      const climateData = form["climate-data"];
+      const googleTrendsData = form["google-trends-data"];
+      const fromTimePrediction = form["from-time-prediction"];
+      const toTimePrediction = form["to-time-prediction"];
+
+
+      if (
+        statisticalData.value === "" ||
+        climateData.value === "" ||
+        googleTrendsData.value === ""
+      ) {
+        toggleSnackbar("Please upload all files");
+        return;
+      }
+
+      // if title is empty or title is less than 3 characters
+      if (title === "" || title.length < 3) {
+        // show error
+        toggleSnackbar("Please enter a title");
+        return;
+      }
+
+      if (fromTimePrediction.value === "" || toTimePrediction.value === "") {
+        toggleSnackbar("Please select a date range");
+        return;
+      }
+
+      // from time prediction is greater than to time prediction
+      if (fromTimePrediction.value > toTimePrediction.value) {
+        // show error
+        toggleSnackbar("From date cannot be greater than to date");
+        return;
+      }
+
+      // submit form
+      form.submit();
+    } 
+    else if (btnValue === "predict-saved") {
+      form.action = "/predict-saved";
+
+      const prediction_id = form["select-data"].value;
+      if (prediction_id === 0) {
+        toggleSnackbar("Please select a prediction");
+        return;
+      }
+      // add prediction id to form
+      const predictionIdInput = document.createElement("input");
+      predictionIdInput.type = "hidden";
+      predictionIdInput.name = "prediction-id";
+      predictionIdInput.value = prediction_id;
+      form.appendChild(predictionIdInput);
+
+      const fromTimePrediction = form["from-time-prediction"];
+      const toTimePrediction = form["to-time-prediction"];
+
+      if (fromTimePrediction.value === "" || toTimePrediction.value === "") {
+        toggleSnackbar("Please select a date range");
+        return;
+      }
+
+      // from time prediction is greater than to time prediction
+      if (fromTimePrediction.value > toTimePrediction.value) {
+        // show error
+        toggleSnackbar("From date cannot be greater than to date");
+        return;
+      }
+
+      // submit form
+      form.submit();
+    } 
+    else {
+      form.action = "/save-data";
+      const title = form.title.value;
+      const statisticalData = form["statistical-data"];
+      const climateData = form["climate-data"];
+      const googleTrendsData = form["google-trends-data"];
+
+      form.submit();
+    }
+  });
+
+  function showSelect() {
+    previousTraining.style.display = "block";
+    newTraining.style.display = "none";
+    newForm.style.display = "none";
+    prevForm.style.display = "flex";
+  }
+
+  function hideSelect() {
+    previousTraining.style.display = "none";
+    newTraining.style.display = "block";
+    newForm.style.display = "flex";
+    prevForm.style.display = "none";
+  }
+
+  toggleSwitch.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      showSelect();
+    } else {
+      hideSelect();
+    }
+  });
+</script>
+
+{% endblock content %}

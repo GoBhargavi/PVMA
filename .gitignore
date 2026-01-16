@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+
+# environments
+.venv/
+venv/
+ENV/
+.env
+
+# editor/OS
+.DS_Store
+.idea/
+.vscode/
+
+# runtime artifacts
+users.db
+training_data/
+output/
+final_dataset.csv
+
+# ML artifacts
+*.h5
+
+# logs
+*.log

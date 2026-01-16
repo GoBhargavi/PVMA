@@ -1,0 +1,54 @@
+{# templates/login.html #} {% extends "layout.html" %} {% block content %}
+<div id="login-page">
+  <div class="form-content">
+    <form method="post"></form>
+    <h1>Login</h1>
+
+    <form method="post" class="form">
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="Password" />
+      <button type="submit" onclick="login()">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="/register">Register</a></p>
+  </div>
+</div>
+
+<script>
+  const btnLogin = document.querySelector("button[type='submit']");
+
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    btnLogin.classList.add("btn-disabled");
+
+    // get name from form
+    const email = form.email.value;
+    const password = form.password.value;
+    
+    if (!validateEmail(email)) {
+      toggleSnackbar("Enter a valid mail");
+      btnLogin.classList.remove("btn-disabled");
+      return;
+    }
+
+    // check if password length is greater than 8
+    if (password.length < 8) {
+      toggleSnackbar("Password must be at least 8 characters long");
+      btnLogin.classList.remove("btn-disabled");
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      toggleSnackbar("Password must be at least 8 characters long");
+      btnLogin.classList.remove("btn-disabled");
+      return;
+    }
+
+
+    e.target.submit();
+  });
+
+</script>
+{% endblock content %}

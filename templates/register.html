@@ -1,0 +1,72 @@
+{# templates/register.html #} {% extends "layout.html" %} {% block content %}
+<div id="register-page">
+  <div class="form-content">
+    <h1>Register</h1>
+    <div class="form">
+      <form method="post">
+        <input type="text" name="name" placeholder="Name" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+
+    <p>Already have an account? <a href="/login">Login</a></p>
+  </div>
+</div>
+
+<script>
+  const form = document.querySelector("form");
+
+  const btnRegister = document.querySelector("button[type='submit']");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    btnRegister.classList.add("btn-disabled");
+
+    // get name from form
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    
+    if (!validateEmail(email)) {
+      toggleSnackbar("Enter a valid mail");
+      btnRegister.classList.remove("btn-disabled");
+      return;
+    }
+
+    // check if password length is greater than 8
+    if (password.length < 8) {
+      toggleSnackbar("Password must be at least 8 characters long");
+      btnRegister.classList.remove("btn-disabled");
+      return;
+    }
+
+  
+    console.log(password)
+    
+    if (!validatePassword(password)) {
+      toggleSnackbar("Password must be at least 8 characters long");
+      btnRegister.classList.remove("btn-disabled");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toggleSnackbar("Passwords do not match");
+      btnRegister.classList.remove("btn-disabled");
+      return;
+    }
+
+    e.target.submit();
+  });
+
+</script>
+
+{% endblock content %}

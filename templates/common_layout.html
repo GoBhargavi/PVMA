@@ -1,0 +1,56 @@
+{# templates/common_layout.html #}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+    <link rel="stylesheet" href="{{url_for('static', path='css/common.css')}}">
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', path='css/newTraining.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', path='css/dashboard.css')}}"
+    />
+
+    <link rel="stylesheet" href="{{url_for('static', path='css/result_page.css')}}">
+  </head>
+
+  <body>
+    <div id="snackbar">
+      <p id="snackbar-text"></p>
+    </div>
+    <script id="snackbar-msg" type="application/json">{{ msg | tojson }}</script>
+    <div class="nav-bar">
+      <h2 class="nav-heading">TML</h2>
+
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/logout" class="nav-link">Logout</a>
+      </div>
+    </div>
+    {% block content %} {% endblock content %}
+    <script>
+
+
+      const snackbar = document.getElementById("snackbar");
+
+      function toggleSnackbar(message) {
+        // snackbar.classList.toggle("snackbar-show");
+        snackbar.classList.add("snackbar-show");
+        document.getElementById("snackbar-text").innerText = message;
+        setTimeout(() => {
+          snackbar.classList.remove("snackbar-show");
+        }, 4000);
+      }
+
+      const _rawMsg = document.getElementById("snackbar-msg")?.textContent;
+      const _msg = _rawMsg ? JSON.parse(_rawMsg) : null;
+      if (_msg) {
+        toggleSnackbar(_msg);
+      }
+    </script>
+  </body>
+</html>

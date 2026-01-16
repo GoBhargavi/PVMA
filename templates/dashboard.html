@@ -1,0 +1,96 @@
+{# templates/dashboard.html #} {% extends "common_layout.html" %} {% block
+content %}
+
+<div class="main">
+  <div class="main-top-row">
+    <h2>Current Modal Predictions</h2>
+
+    {% if predictions|length != 0 %}
+    <a href="/new-training">
+    <button>
+        <i class="fas fa-plus"></i>
+        + Train New Model
+      </button>
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="pd-20 card-box mb-30 snipcss-GS3EU">
+    {% if predictions|length == 0 %}
+
+    <div
+      style="
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <h3
+        style="
+          font-family: inherit;
+          font-weight: 600;
+          line-height: 1.1;
+          color: inherit;
+          margin-top: 20px;
+          margin-bottom: 10px;
+          font-size: 24px;
+          font-family: 'Roboto', sans-serif;
+        "
+      >
+        Start training your first model
+      </h3>
+
+      <button>
+        <a href="/new-training">
+          <i class="fas fa-plus"></i>
+          + Train New Model
+        </a>
+      </button>
+    </div>
+
+    {% else %}
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Training Started</th>
+          <th scope="col">Training Completed</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prediction in predictions %}
+
+        <tr>
+          <th scope="row">
+
+            {% if prediction.status == 'completed' %}
+            <a href="/result?job_id={{prediction.job_id}}"
+              >{{prediction.job_id}}</a
+            >
+            {% else %} {{prediction.job_id}} {% endif %}
+          </th>
+          <td>
+            {{prediction.title}}
+          </td>
+          <td>{{prediction.start_date}}</td>
+          <td>
+            {{prediction.end_date}}
+          </td>
+          <td>
+            <span class="badge badge-primary">
+              {{prediction.status|upper}}
+            </span>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
